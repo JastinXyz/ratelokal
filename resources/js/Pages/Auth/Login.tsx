@@ -8,6 +8,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
+import { RiGoogleFill } from '@remixicon/react';
 
 interface Props {
   canResetPassword: boolean;
@@ -83,8 +84,21 @@ export default function Login({ canResetPassword, status }: Props) {
           </label>
         </div>
 
+        <div className="relative flex items-center mt-4">
+            <div className="flex-grow border-t border-gray-400 dark:border-gray-500"></div>
+            <span className="flex-shrink text-gray-400 dark:text-gray-500 px-6">
+                Or Login Via
+            </span>
+            <div className="flex-grow border-t border-gray-400 dark:border-gray-500"></div>
+        </div>
+
+        <a className="flex gap-2 mt-2 items-center justify-center transition duration-200 border border-gray-400 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md" href={route('auth.google')}>
+          <RiGoogleFill className='w-6 h-6 text-gray-700 dark:text-gray-300' />
+          <span className="block font-medium text-sm text-gray-700 dark:text-gray-300">Google</span>
+        </a>
+
         <div className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0 mt-4">
-          {canResetPassword && (
+          {canResetPassword ? (
             <div>
               <Link
                 href={route('password.request')}
@@ -93,7 +107,7 @@ export default function Login({ canResetPassword, status }: Props) {
                 Forgot your password?
               </Link>
             </div>
-          )}
+          ) : <div></div>}
 
           <div className="flex items-center justify-end">
             <Link
