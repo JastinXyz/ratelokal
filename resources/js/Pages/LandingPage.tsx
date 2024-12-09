@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Head } from '@inertiajs/react';
 
 export default function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <>
+      < Head title={"LandingPage - RateLokal"} />
       <div className="min-h-screen bg-[#17B271] flex flex-col justify-center items-center rounded-b-[3rem] relative">
         <div className="absolute top-0 left-0 p-6">
           <img src="/assets/img/logo.png" alt="Logo" className="w-56 h-auto" />
