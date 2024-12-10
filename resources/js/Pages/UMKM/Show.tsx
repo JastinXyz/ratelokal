@@ -68,7 +68,8 @@ export default function Show({ umkm, hasReviewed }: { umkm: UMKM, hasReviewed: R
 
                     <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-4">
                         <div className="col-span-4">
-                            <div className="bg-white shadow-lg p-4 rounded-lg">
+                            {props.auth.user?.id !== umkm.user_id && (
+                                <div className="bg-white shadow-lg p-4 rounded-lg">
                                 {props.auth.user ? (
                                     <>
                                         <div>
@@ -112,6 +113,7 @@ export default function Show({ umkm, hasReviewed }: { umkm: UMKM, hasReviewed: R
                                     </>
                                 ) : <>Login Dulu</>}
                             </div>
+                            )}
                             {umkm.reviews.map((x, idx) => {
                                 return (<div key={idx} className="bg-white shadow-lg p-4 rounded-lg mt-4">
                                     <img src={x.author?.profile_photo_url} alt={x.author?.name} className="w-10 h-10" />
