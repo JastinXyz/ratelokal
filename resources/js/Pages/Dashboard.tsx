@@ -241,7 +241,7 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
                       </div>
                       <div>
                         <h2 className='font-semibold text-xl'>Rating Rata-Rata</h2>
-                        <p className='font-bold text-xl flex gap-1 items-center'>{umkm ? <span>{umkm.ratings.average}/5</span> : 'N/A'} <RiStarFill className='w-5 h-5' /></p>
+                        <p className='font-bold text-xl flex gap-1 items-center'>{umkm && umkm.ratings.average ? <span>{umkm.ratings.average}/5</span> : 'N/A'} <RiStarFill className='w-5 h-5' /></p>
                       </div>
                     </div>
                   </div>
