@@ -137,8 +137,11 @@ export default function Show({
                     </p>
                   </div>
                 </div>
-
-                <div className="col-span-2 bg-white shadow-lg py-4 px-6 rounded-lg h-fit">
+              
+            
+                <div className="col-span-2 grid gap-2">  
+                  {/*  */}
+                <div className=" bg-white  shadow-lg py-4 px-6 rounded-lg h-fit">
                   <div className="flex justify-between items-center">
                     <h1 className="font-bold text-xl">Filter:</h1>
 
@@ -182,11 +185,29 @@ export default function Show({
                           </svg>
                         </button>
                       </div>
-                    </div>
-                  </div>
+                    </div>                   
+                  </div>                 
                 </div>
+                {/*  */}
+                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
+                 <h2 className="font-semibold text-xl text-slate-900">Mungkin Anda Juga Suka</h2>
+                 <div className="flex items-center space-x-4 mt-4">
+                    <img
+                      className="w-12 h-12 rounded-full"
+                      src=""
+                      alt="Lumidex Picture"
+                    />
+                    <div>
+                      <h2 className="font-bold text-md">Lumidex</h2>
+                      <p className="text-sm text-slate-500">2024 Testimoni</p>                     
+                    <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>                 
+                    </div>
+                  </div>             
               </div>
-
+                </div>              
+              </div>
+              
+                
               <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-4">
                 <div className="col-span-4">
                   {props.auth.user?.id !== umkm.user_id && (
