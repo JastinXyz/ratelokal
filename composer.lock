@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "956f4b17afb8cdb00c20e34b84cfb7e1",
+    "content-hash": "9e6631b8af59d28a9cc8c6441a906d82",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -313,6 +313,68 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.3"
             },
             "time": "2024-07-08T12:26:09+00:00"
+        },
+        {
+            "name": "digikraaft/laravel-review-rating",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digikraaft/laravel-review-rating.git",
+                "reference": "f8d30ed20fae648e63c70b80d5ec71736514fb14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digikraaft/laravel-review-rating/zipball/f8d30ed20fae648e63c70b80d5ec71736514fb14",
+                "reference": "f8d30ed20fae648e63c70b80d5ec71736514fb14",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0",
+                "phpunit/phpunit": "^10.0|^11.0",
+                "spatie/test-time": "^1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Digikraaft\\ReviewRating\\ReviewRatingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Digikraaft\\ReviewRating\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Oladoyinbo",
+                    "email": "hello@digikraaft.ng",
+                    "homepage": "https://digikraaft.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Review & Rating system for Laravel",
+            "homepage": "https://github.com/digikraaft/laravel-review-rating",
+            "keywords": [
+                "digikraaft",
+                "laravel",
+                "ratings",
+                "reviews"
+            ],
+            "support": {
+                "issues": "https://github.com/digikraaft/laravel-review-rating/issues",
+                "source": "https://github.com/digikraaft/laravel-review-rating/tree/v3.1.0"
+            },
+            "time": "2024-06-05T05:32:26+00:00"
         },
         {
             "name": "doctrine/inflector",

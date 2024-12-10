@@ -107,6 +107,23 @@ export interface UMKM {
   description: string;
   location: string;
   whatsapp_number: string;
+  ratings: { total: number, average: number };
+  reviews: Review[];
   created_at: DateTime;
   updated_at: DateTime;
+}
+
+export interface Review {
+  id: number;
+  title: Nullable<string>;
+  review: string;
+  rating: number;
+  model_type: string;
+  model_id: number;
+  author_type: string;
+  author_id: number;
+  author?: User;
+  created_at: DateTime;
+  updated_at: DateTime;
+  deleted_at: Nullable<DateTime>;
 }

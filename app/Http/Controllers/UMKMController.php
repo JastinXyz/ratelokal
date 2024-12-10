@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\UMKM;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UMKMController extends Controller
 {
@@ -13,11 +15,20 @@ class UMKMController extends Controller
     }
 
     public function rateUMKM(Request $request, $umkm) {
-        // $umkm = UMKM::findOrFail($umkm);
-        // $umkm->ratings()->create([
-        //     'rating' => $request->rating,
-        //     'comment' => $request->comment,
-        //     'user_id' => auth()->id(),
-        // ]);
+        $request->validate([
+            'description' => ['required'],
+            'rate' => ['required']
+        ]);
+
+        $umkm = UMKM::findOrFail($umkm);
+        $umkm->review($request->description, Auth::user(), $request->rate);
+    }
+
+    public function show($umkm) {
+        $umkm = UMKM::with(['reviews', 'reviews.author'])->findOrFail($umkm);
+        return inertia('UMKM/Show', [
+            'umkm' => $umkm,
+            'hasReviewed' => DB::table('reviews')->where('model_type', 'App\Models\UMKM')->where('model_id', $umkm->id)->where('author_id', Auth::id())->where('author_type', 'App\Models\User')->first()
+        ]);
     }
 }

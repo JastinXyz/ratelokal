@@ -41,5 +41,7 @@ Route::middleware([
     Route::post('/api/umkm/{umkm}/rate', [UMKMController::class, 'rateUMKM'])->name('umkm.rate');
 });
 
+Route::get('/umkm/{umkm}', [UMKMController::class, 'show'])->name('umkm.show');
+
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/oauth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
