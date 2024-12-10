@@ -49,4 +49,9 @@ class UMKMController extends Controller
             'hasReviewed' => DB::table('reviews')->where('model_type', 'App\Models\UMKM')->where('model_id', $umkm->id)->where('author_id', Auth::id())->where('author_type', 'App\Models\User')->first()
         ]);
     }
+
+    public function recommend($umkm) {
+        $recommendedUMKM = UMKM::where('id', '!=', $umkm)->inRandomOrder()->take(3)->get();
+        return response()->json($recommendedUMKM);
+    }
 }

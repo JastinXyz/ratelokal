@@ -6,10 +6,11 @@ import TextArea from "@/Components/TextArea";
 import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
 import { Review, UMKM } from "@/types";
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { RiMapPinLine, RiStarFill, RiWhatsappLine } from "@remixicon/react";
+import axios from "axios";
 import classNames from "classnames";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Show({
@@ -20,6 +21,7 @@ export default function Show({
   hasReviewed: Review;
 }) {
   let { props } = useTypedPage();
+  let [recommend, setRecommend] = useState<UMKM[]>();
   let route = useRoute();
   let form = useForm({
     description: hasReviewed ? hasReviewed.review : "",
@@ -47,6 +49,28 @@ export default function Show({
       },
     });
   };
+
+  function fetchRecommend() {
+    const csrfToken: any = document
+      .querySelector('meta[name="csrf-token"]')
+      ?.getAttribute('content');
+    axios.get('/api/umkm/recommend/' + umkm.id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+      }
+    })
+      .then(response => {
+        setRecommend(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the UMKM data!", error);
+      });
+  }
+
+  useEffect(() => {
+    fetchRecommend()
+  }, [])
 
   return (
     <>
@@ -250,18 +274,32 @@ export default function Show({
                 <div className="w-full md:w-[30%]">
                   <div className="bg-white rounded-lg p-4 shadow">
                     <h1 className="font-bold text-xl">Mungkin Anda Juga Suka</h1>
-                    <div className="flex items-center space-x-4 mt-4">
-                        <img
-                          className="w-12 h-12 rounded-full"
-                          src=""
-                          alt="Lumidex Picture"
-                        />
-                        <div>
-                          <h2 className="font-bold text-md">Lumidex</h2>
-                          <p className="text-sm text-slate-500">2024 Testimoni</p>                     
-                        <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>                 
-                        </div>
-                      </div>             
+                      {recommend?.map((x, idx) => (
+                        <Link href={route('umkm.show', x.id)}>
+                          <div className="flex items-center space-x-4 mt-4" key={idx}>
+                            <img
+                              className="w-16 h-16 rounded"
+                              src={x.logo_url}
+                              alt="Logo"
+                            />
+                            <div>
+                              <h2 className="font-bold text-md">{x.name}</h2>
+                              <p className="text-sm text-slate-500">{x.ratings.total} Testimoni</p>                     
+                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <RiStarFill
+                                    key={i}
+                                    className={`w-5 h-5 ${i < Math.round(x.ratings.average) ? "text-yellow-500" : "text-gray-300"}`}
+                                  />
+                                ))}
+                              </div>
+                              <span>{x.ratings.average}</span>
+                            </div>                
+                            </div>
+                          </div> 
+                        </Link>            
+                      ))}   
                   </div>
                 </div>
               </div>
