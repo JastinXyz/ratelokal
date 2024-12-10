@@ -14,7 +14,7 @@ class UMKMController extends Controller
         return response()->json($data);
     }
 
-    public function rateUMKM(Request $request, $umkm) {
+    public function rate(Request $request, $umkm) {
         $request->validate([
             'description' => ['required'],
             'rate' => ['required']
@@ -35,6 +35,11 @@ class UMKMController extends Controller
         } else {
             $umkm->review($request->description, Auth::user(), $request->rate);
         }
+    }
+
+    public function destroyRate($umkm) {
+        $umkm = UMKM::findOrFail($umkm);
+        $umkm->reviews()->where('author_id', Auth::id())->delete();
     }
 
     public function show($umkm) {

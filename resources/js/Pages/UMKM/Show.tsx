@@ -30,6 +30,18 @@ export default function Show({ umkm, hasReviewed }: { umkm: UMKM, hasReviewed: R
             },
         })
     }
+
+    let destroyRate = () => {
+        form.delete(route('umkm.destroyRate', umkm.id), {
+            onSuccess: () => {
+                toast.success('Berhasil Terhapus!')
+            },
+            onError: () => {
+                toast.error('Terjadi Kesalahan!');
+            },
+        })
+    }
+
     return (
         <div className="py-6">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -101,13 +113,13 @@ export default function Show({ umkm, hasReviewed }: { umkm: UMKM, hasReviewed: R
                                             <InputError message={form.errors.description} className="mt-2" />
                                         </div>
                                         <div className='mt-2 flex items-center justify-end gap-2'>
-                                            {hasReviewed && <DangerButton>Hapus Review</DangerButton>}
+                                            {hasReviewed && <DangerButton onClick={destroyRate}>Hapus Review</DangerButton>}
                                             <PrimaryButton
                                                 onClick={submitRate}
                                                 className={classNames({ 'opacity-25': form.processing || !form.data.description || !form.data.rate })}
                                                 disabled={form.processing || !form.data.description || !form.data.rate}
                                             >
-                                                {hasReviewed ? 'Update' : 'Simpan'}
+                                                {hasReviewed ? 'Update' : 'Kirim'}
                                             </PrimaryButton>
                                         </div>
                                     </>
