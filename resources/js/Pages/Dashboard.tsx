@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import classNames from 'classnames';
 import useTypedPage from '@/Hooks/useTypedPage';
 import SelectInput from '@/Components/SelectInput';
-import { router, useForm } from '@inertiajs/react';
+import { Link, router, useForm } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import useRoute from '@/Hooks/useRoute';
 import toast from 'react-hot-toast';
@@ -17,6 +17,7 @@ import ActionMessage from '@/Components/ActionMessage';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextArea from '@/Components/TextArea';
 import { UMKM } from '@/types';
+import { RiStarFill, RiStarLine, RiUserStarLine } from '@remixicon/react';
 
 export default function Dashboard({ umkm }: { umkm: UMKM }) {
   let { props } = useTypedPage();
@@ -96,14 +97,14 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
       )}
     >
       <div className="py-6">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg p-6 lg:p-8 shadow-lg">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-6 lg:p-8 shadow">
             Selamat datang, {props.auth.user?.name}
           </div>
           {props.auth.roles.includes('umkm') && (
             <>
-              <div className="grid grid-cols-4 gap-2 mt-4">
-                <div className="col-span-3 bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg p-6 lg:p-8 shadow-lg">
+              <div className="flex gap-2 mt-4 md:flex-row flex-col-reverse">
+                <div className="w-full md:w-[70%] bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-6 lg:p-8 shadow">
                   <h1 className="font-semibold text-xl">Lengkapi Profil UMKM Anda!</h1>
                   <div className="col-span-6 sm:col-span-4 mt-2">
                     {/* <!-- Profile Photo File Input --> */}
@@ -221,7 +222,34 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
                     </PrimaryButton>
                   </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg p-6 lg:p-8 shadow-lg"></div>
+                <div className='w-full md:w-[30%] flex flex-col gap-2'>
+                  <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-6 lg:p-8 shadow text-dark-alt">
+                    <div className='flex items-center gap-4'>
+                      <div className='bg-primary-400/80 w-14 h-14 rounded-lg flex justify-center items-center'>
+                        <RiUserStarLine className='w-7 h-7 text-white' />
+                      </div>
+                      <div>
+                        <h2 className='font-semibold text-xl'>Total Reviews</h2>
+                        <p className='font-bold text-xl'>{umkm.ratings.total}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-6 lg:p-8 shadow text-dark-alt">
+                    <div className='flex items-center gap-4'>
+                      <div className='bg-primary-400/80 w-14 h-14 rounded-lg flex justify-center items-center'>
+                        <RiStarLine className='w-7 h-7 text-white' />
+                      </div>
+                      <div>
+                        <h2 className='font-semibold text-xl'>Rating Rata-Rata</h2>
+                        <p className='font-bold text-xl flex gap-1 items-center'><span>{umkm.ratings.average}/5</span> <RiStarFill className='w-5 h-5' /></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-4 shadow text-dark-alt">
+                    <Link href={route('umkm.show', umkm.id)}><PrimaryButton className='w-full'>Halaman UMKM Anda</PrimaryButton></Link>
+                  </div>
+
+                </div>
               </div>
             </>
           )}
