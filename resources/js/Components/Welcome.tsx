@@ -52,13 +52,13 @@ export default function Welcome() {
           <p className="mt-4 text-sm">
             <a
               href="https://laravel.com/docs"
-              className="inline-flex items-center font-semibold text-indigo-700 dark:text-indigo-300"
+              className="inline-flex items-center font-semibold text-primary-700 dark:text-primary-300"
             >
               Explore the documentation
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
-                className="ml-1 w-5 h-5 fill-indigo-500 dark:fill-indigo-200"
+                className="ml-1 w-5 h-5 fill-primary-500 dark:fill-primary-200"
               >
                 <path
                   fillRule="evenodd"
@@ -98,13 +98,13 @@ export default function Welcome() {
           <p className="mt-4 text-sm">
             <a
               href="https://laracasts.com"
-              className="inline-flex items-center font-semibold text-indigo-700 dark:text-indigo-300"
+              className="inline-flex items-center font-semibold text-primary-700 dark:text-primary-300"
             >
               Start watching Laracasts
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
-                className="ml-1 w-5 h-5 fill-indigo-500 dark:fill-indigo-200"
+                className="ml-1 w-5 h-5 fill-primary-500 dark:fill-primary-200"
               >
                 <path
                   fillRule="evenodd"

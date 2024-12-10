@@ -21,6 +21,10 @@ class UMKMController extends Controller
         ]);
 
         $umkm = UMKM::findOrFail($umkm);
+        if (Auth::id() == $umkm->user_id) {
+            return response()->json(['error' => 'You cannot rate your own UMKM.'], 403);
+        }
+        
         $umkm->review($request->description, Auth::user(), $request->rate);
     }
 

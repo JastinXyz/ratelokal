@@ -19,7 +19,7 @@ class UMKM extends BaseModel
     public function getRatingsAttribute() {
         return [
             'total' => $this->numberOfRatings(),
-            'average' => $this->averageRating()
+            'average' => $this->averageRating(2)
         ];
     }
 
