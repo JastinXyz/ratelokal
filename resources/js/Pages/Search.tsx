@@ -1,7 +1,57 @@
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import useRoute from "@/Hooks/useRoute";
+import { UMKM } from "@/types";
 import { Head, Link } from "@inertiajs/react";
-import React from "react";
+import { RiArrowLeftSLine, RiArrowRightSLine, RiMapPin2Line, RiWhatsappLine } from "@remixicon/react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function Rateumkm() {
+export default function SearchUMKM() {
+  let route = useRoute();
+  let [UMKM, setUMKM] = useState<UMKM[]>();
+  let [rawUMKM, setRawUMKM] = useState();
+  let [searchQuery, setSearchQuery] = useState("");
+  let [currentPage, setCurrentPage] = useState(1);
+  let [lastPage, setLastPage] = useState(1);
+
+  useEffect(() => {
+    fetchUMKMData();
+  }, [currentPage]);
+
+  function fetchUMKMData() {
+    const csrfToken: any = document
+      .querySelector('meta[name="csrf-token"]')
+      ?.getAttribute('content');
+    axios.get('/api/umkm', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+      },
+      params: {
+        search: searchQuery || '',
+        page: currentPage,
+      },
+    })
+      .then(response => {
+        setUMKM(response.data.data);
+        setRawUMKM(response.data);
+        setLastPage(response.data.last_page);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the UMKM data!", error);
+      });
+  }
+
+  useEffect(() => {
+    let debouncer = setTimeout(() => {
+      fetchUMKMData();
+    }, 500);
+    return () => {
+      clearTimeout(debouncer);
+    };
+  }, [searchQuery]);
+
   return (
     <>
       <Head title={"RateUMKM - RateLokal"} />
@@ -32,7 +82,7 @@ export default function Rateumkm() {
         {/* EndNavbar */}
 
         {/* Search */}
-        <section className="text-center mt-8">
+        <div className="text-center mt-8">
           <div className="container">
             <div className="w-full md:px-0 bg-white py-12 rounded-lg shadow">
               {/* Updated Text */}
@@ -40,373 +90,72 @@ export default function Rateumkm() {
                 Mulai Cari UMKM Favorit Dibawah
               </h2>
               {/* Responsive Input */}
-              <input
-                type="text"
-                placeholder="Cari UMKM..."
-                className="w-11/12 sm:w-3/4 md:w-1/2 p-3 bg-[#5B5B5B] bg-opacity-20 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-              />
+              <div className="px-6"></div>
+                <TextInput onChange={(e) => setSearchQuery(e.target.value)} className="w-full md:w-1/2 !rounded-full" placeholder="Cari UMKM..." />
+              </div>
             </div>
-          </div>
-        </section>
+        </div>
         {/* End Search */}
 
-        <section className="pt-24 pb-16">
+        <section className="mt-8 pb-16">
           <div className="container">
-            <div className="w-full flex flex-wrap">
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {UMKM?.map((x, idx) => (
+                <div key={idx}>
+                  <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
+                    <div className="flex flex-row gap-4">
+                      <div>
+                        <img
+                          src={x.logo_url}
+                          alt="Logo"
+                          className="w-28 h-28"
+                        ></img>
+                      </div>
+                      <div>
+                        <h3 className="text-gray-700 text-xl font-bold">
+                          {x.name}
+                        </h3>
+                        <p className=" text-sm text-gray-500">{x.ratings.total} Testimoni</p>
+                        <div className="flex  items-center">
+                          <span className="text-yellow-400 text-2xl">★★★★★</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <hr className="my-6 border-slate-900"></hr>
+                    <hr className="my-6 border-slate-900"></hr>
 
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
-                </div>
-              </div>
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
-                      </div>
+                    <p className="text-gray-600 text-sm flex items-center gap-2">
+                      <RiWhatsappLine className="text-primary-500 w-6 h-6" />
+                      <span>{x.whatsapp_number}</span>
+                    </p>
+                    <p className="text-gray-600 text-sm flex items-center mt-2 gap-2">
+                      <RiMapPin2Line className="text-indigo-500 w-6 h-6" />
+                      <span>{x.location}</span>
+                    </p>
+                    <div className="mt-4">
+                      <Link href={route('umkm.show', x.id)}><PrimaryButton className="w-full">Selengkapnya</PrimaryButton></Link>
                     </div>
                   </div>
-                  <hr className="my-6 border-slate-900"></hr>
-
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
                 </div>
-              </div>
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
-                      </div>
-                    </div>
-                  </div>
-                  <hr className="my-6 border-slate-900"></hr>
-
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
-                </div>
-              </div>
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
-                      </div>
-                    </div>
-                  </div>
-                  <hr className="my-6 border-slate-900"></hr>
-
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
-                </div>
-              </div>
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
-                      </div>
-                    </div>
-                  </div>
-                  <hr className="my-6 border-slate-900"></hr>
-
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
-                </div>
-              </div>
-              {/*  */}
-              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                  <div className="flex flex-row gap-5">
-                    <div className="w-full">
-                      <img
-                        src="https://via.placeholder.com/200"
-                        alt="Logo"
-                        className="w-full  mx-auto"
-                      ></img>
-                    </div>
-                    <div className="w-full">
-                      <h3 className=" text-gray-700 text-xl font-bold mt-4">
-                        Bank Mandiri
-                      </h3>
-                      <p className=" text-sm text-gray-500">1291 Testimoni</p>
-                      <div className="flex  items-center mt-2">
-                        <span className="text-yellow-400 text-2xl">★★★★★</span>
-                      </div>
-                    </div>
-                  </div>
-                  <hr className="my-6 border-slate-900"></hr>
-
-                  <p className="text-gray-600 text-sm flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 10l9 9m0 0l9-9m-9 9V3"
-                      />
-                    </svg>
-                    0823828382882
-                  </p>
-                  <p className="text-gray-600 text-sm flex items-center mt-2">
-                    <svg
-                      className="w-5 h-5 mr-2 text-blue-500"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657A8 8 0 118 8m0 0v4m0 0h4"
-                      />
-                    </svg>
-                    Jalan blablabla
-                  </p>
-                </div>
-              </div>
+              ))}
+            </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-8 gap-2">
+              <PrimaryButton
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="disabled:opacity-50"
+              >
+                <RiArrowLeftSLine className="w-5 h-5"/>
+                <span>Previous</span>
+              </PrimaryButton>
+              <PrimaryButton
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === lastPage}
+                className="disabled:opacity-50"
+              >
+                <span>Next</span>
+                <RiArrowRightSLine className="w-5 h-5"/>
+              </PrimaryButton>
             </div>
           </div>
         </section>

@@ -40,11 +40,11 @@ Route::middleware([
     Route::post('/profile/roleswitch', [AnotherProfileController::class, 'roleSwitch'])->name('profile.switch-role');
     Route::post('/profile/updateumkm', [AnotherProfileController::class, 'updateUMKM'])->name('profile.update-umkm');
 
-    Route::get('/api/umkm', [UMKMController::class, 'apiIndex'])->name('umkm.apiIndex');
     Route::post('/api/umkm/{umkm}/rate', [UMKMController::class, 'rate'])->name('umkm.rate');
     Route::delete('/api/umkm/{umkm}/rate', [UMKMController::class, 'destroyRate'])->name('umkm.destroyRate');
 });
 
+Route::get('/api/umkm', [UMKMController::class, 'apiIndex'])->name('umkm.apiIndex');
 Route::get('/umkm/{umkm}', [UMKMController::class, 'show'])->name('umkm.show');
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
