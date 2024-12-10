@@ -24,6 +24,8 @@ export interface User {
 }
 
 export interface Auth {
+  roles: string[];
+  permissions: string[];
   user: Nullable<
     User & {
       all_teams?: Team[];
@@ -91,6 +93,20 @@ export interface TeamInvitation {
   team_id: number;
   email: string;
   role: Nullable<string>;
+  created_at: DateTime;
+  updated_at: DateTime;
+}
+
+export interface UMKM {
+  id: number;
+  user_id: number;
+  user?: User;
+  name: string;
+  logo: string;
+  logo_url: string;
+  description: string;
+  location: string;
+  whatsapp_number: string;
   created_at: DateTime;
   updated_at: DateTime;
 }
