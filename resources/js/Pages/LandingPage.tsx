@@ -117,11 +117,11 @@ export default function LandingPage() {
 
           <div className="lg:flex lg:items-end lg:justify-between">
             <div>
-              <div className="flex justify-center lg:justify-start">
+              <div className="flex">
                 <img
                   src="/assets/img/logo.png"
                   alt="Logo"
-                  className="w-32 h-auto"
+                  className="w-64 h-auto"
                 />
               </div>
 

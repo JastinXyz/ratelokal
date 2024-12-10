@@ -54,7 +54,7 @@ export default function Rateumkm() {
           <div className="container">
             <div className="w-full flex flex-wrap">
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
@@ -113,7 +113,7 @@ export default function Rateumkm() {
                 </div>
               </div>
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
@@ -172,7 +172,7 @@ export default function Rateumkm() {
                 </div>
               </div>
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
@@ -231,7 +231,7 @@ export default function Rateumkm() {
                 </div>
               </div>
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
@@ -290,7 +290,7 @@ export default function Rateumkm() {
                 </div>
               </div>
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
@@ -349,7 +349,7 @@ export default function Rateumkm() {
                 </div>
               </div>
               {/*  */}
-              <div className="mb-4 p-4 md:w-1/2  xl:w-1/3 mx-auto">
+              <div className="mb-4 md:p-3 w-full md:w-1/2  xl:w-1/3 mx-auto">
                 <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
                   <div className="flex flex-row gap-5">
                     <div className="w-full">
