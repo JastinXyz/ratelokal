@@ -230,7 +230,7 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
                       </div>
                       <div>
                         <h2 className='font-semibold text-xl'>Total Reviews</h2>
-                        <p className='font-bold text-xl'>{umkm.ratings.total}</p>
+                        <p className='font-bold text-xl'>{umkm ? umkm.ratings.total : 'N/A'}</p>
                       </div>
                     </div>
                   </div>
@@ -241,13 +241,15 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
                       </div>
                       <div>
                         <h2 className='font-semibold text-xl'>Rating Rata-Rata</h2>
-                        <p className='font-bold text-xl flex gap-1 items-center'><span>{umkm.ratings.average}/5</span> <RiStarFill className='w-5 h-5' /></p>
+                        <p className='font-bold text-xl flex gap-1 items-center'>{umkm ? <span>{umkm.ratings.average}/5</span> : 'N/A'} <RiStarFill className='w-5 h-5' /></p>
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-4 shadow text-dark-alt">
-                    <Link href={route('umkm.show', umkm.id)}><PrimaryButton className='w-full'>Halaman UMKM Anda</PrimaryButton></Link>
-                  </div>
+                  {umkm && (
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-4 shadow text-dark-alt">
+                      <Link href={route('umkm.show', umkm.id)}><PrimaryButton className='w-full'>Halaman UMKM Anda</PrimaryButton></Link>
+                    </div>
+                  )}
 
                 </div>
               </div>
