@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnotherProfileController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\UMKMController;
 use App\Models\UMKM;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,9 @@ Route::middleware([
 
     Route::post('/profile/roleswitch', [AnotherProfileController::class, 'roleSwitch'])->name('profile.switch-role');
     Route::post('/profile/updateumkm', [AnotherProfileController::class, 'updateUMKM'])->name('profile.update-umkm');
+
+    Route::get('/api/umkm', [UMKMController::class, 'apiIndex'])->name('umkm.apiIndex');
+    Route::post('/api/umkm/{umkm}/rate', [UMKMController::class, 'rateUMKM'])->name('umkm.rate');
 });
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
