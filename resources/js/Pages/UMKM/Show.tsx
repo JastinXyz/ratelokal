@@ -1,3 +1,4 @@
+import ApplicationLogo from "@/Components/ApplicationLogo";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -7,7 +8,7 @@ import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
 import { Review, UMKM } from "@/types";
 import { Link, useForm } from "@inertiajs/react";
-import { RiMapPinLine, RiStarFill, RiWhatsappLine } from "@remixicon/react";
+import { RiMapPinLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import axios from "axios";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
@@ -77,20 +78,12 @@ export default function Show({
       <div className="min-h-screen bg-[#d8f7ea]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
-          <header className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg">
-            <img
-              src="/assets/img/green-logo.png"
-              alt="Logo"
-              className="w-40 sm:w-56 h-auto"
-            />
+          <header className="flex justify-between items-center bg-white shadow p-4 rounded-lg">
+            <Link href="/"><ApplicationLogo className="text-primary-500 w-36 h-auto" /></Link>
 
-            <div className="flex space-x-2 sm:space-x-4">
-              <button className="bg-[#0B905B] text-white text-sm sm:text-base w-28 sm:w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Cari
-              </button>
-              <button className="bg-[#0B905B] text-white text-sm sm:text-base w-28 sm:w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Masuk
-              </button>
+            <div className="flex gap-2">
+              <Link href="/search"><PrimaryButton className="flex gap-2"><RiSearch2Line className="w-4 h-4" /> <span>Cari</span></PrimaryButton></Link>
+              <Link href="/login"><PrimaryButton>Masuk</PrimaryButton></Link>
             </div>
           </header>
         </div>

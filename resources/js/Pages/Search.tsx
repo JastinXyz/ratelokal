@@ -3,9 +3,10 @@ import TextInput from "@/Components/TextInput";
 import useRoute from "@/Hooks/useRoute";
 import { UMKM } from "@/types";
 import { Head, Link } from "@inertiajs/react";
-import { RiArrowLeftSLine, RiArrowRightSLine, RiMapPin2Line, RiWhatsappLine } from "@remixicon/react";
+import { RiArrowLeftSLine, RiArrowRightSLine, RiMapPin2Line, RiSearch2Line, RiWhatsappLine } from "@remixicon/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ApplicationLogo from "@/Components/ApplicationLogo";
 
 export default function SearchUMKM() {
   let route = useRoute();
@@ -58,32 +59,21 @@ export default function SearchUMKM() {
 
       <div className="min-h-screen bg-[#d8f7ea]">
         {/* Navbar */}
-        <div className="px-4 container max-w-[1440px] mx-auto">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
-          <header className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg">
-            {/* Logo */}
-            <img
-              src="/assets/img/green-logo.png"
-              alt="Logo"
-              className="w-40 sm:w-56 h-auto"
-            />
+          <header className="flex justify-between items-center bg-white shadow p-4 rounded-lg">
+            <Link href="/"><ApplicationLogo className="text-primary-500 w-36 h-auto" /></Link>
 
-            {/* Buttons */}
-            <div className="flex space-x-2 sm:space-x-4">
-              <button className="bg-[#0B905B] text-white text-sm sm:text-base w-28 sm:w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Cari
-              </button>
-              <button className="bg-[#0B905B] text-white text-sm sm:text-base w-28 sm:w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Masuk
-              </button>
+            <div className="flex gap-2">
+              <Link href="/search"><PrimaryButton className="flex gap-2"><RiSearch2Line className="w-4 h-4" /> <span>Cari</span></PrimaryButton></Link>
+              <Link href="/login"><PrimaryButton>Masuk</PrimaryButton></Link>
             </div>
           </header>
-        </div>
         {/* EndNavbar */}
 
         {/* Search */}
         <div className="text-center mt-8">
-          <div className="container">
+          <div>
             <div className="w-full md:px-0 bg-white py-12 rounded-lg shadow">
               {/* Updated Text */}
               <h2 className="text-gray-600 text-xl font-semibold mb-4">
@@ -98,7 +88,7 @@ export default function SearchUMKM() {
         {/* End Search */}
 
         <section className="mt-8 pb-16">
-          <div className="container">
+          <div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {UMKM?.map((x, idx) => (
                 <div key={idx}>
@@ -160,6 +150,8 @@ export default function SearchUMKM() {
           </div>
         </section>
       </div>
+      </div>
+
     </>
   );
 }
