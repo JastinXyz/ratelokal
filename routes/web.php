@@ -13,6 +13,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('LandingPage');
 });
+Route::get('/search', function () {
+    return Inertia::render('Search');
+});
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
