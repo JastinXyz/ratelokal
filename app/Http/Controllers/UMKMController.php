@@ -14,7 +14,7 @@ class UMKMController extends Controller
         return response()->json($data);
     }
 
-    public function rateUMKM(Request $request, $umkm) {
+    public function rate(Request $request, $umkm) {
         $request->validate([
             'description' => ['required'],
             'rate' => ['required']
@@ -24,8 +24,22 @@ class UMKMController extends Controller
         if (Auth::id() == $umkm->user_id) {
             return response()->json(['error' => 'You cannot rate your own UMKM.'], 403);
         }
-        
-        $umkm->review($request->description, Auth::user(), $request->rate);
+
+        $existingReview = $umkm->reviews()->where('author_id', Auth::id())->first();
+
+        if ($existingReview) {
+            $existingReview->update([
+                'review' => $request->description,
+                'rating' => $request->rate
+            ]);
+        } else {
+            $umkm->review($request->description, Auth::user(), $request->rate);
+        }
+    }
+
+    public function destroyRate($umkm) {
+        $umkm = UMKM::findOrFail($umkm);
+        $umkm->reviews()->where('author_id', Auth::id())->delete();
     }
 
     public function show($umkm) {
