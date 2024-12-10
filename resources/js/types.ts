@@ -107,7 +107,7 @@ export interface UMKM {
   description: string;
   location: string;
   whatsapp_number: string;
-  ratings: { total: number, average: number };
+  ratings: { total: number, average: number, '5': number, '4': number, '3': number, '2': number, '1': number };
   reviews: Review[];
   created_at: DateTime;
   updated_at: DateTime;

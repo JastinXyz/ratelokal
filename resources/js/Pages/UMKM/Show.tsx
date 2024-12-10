@@ -7,7 +7,7 @@ import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
 import { Review, UMKM } from "@/types";
 import { useForm } from "@inertiajs/react";
-import { RiMapPinLine, RiWhatsappLine } from "@remixicon/react";
+import { RiMapPinLine, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import classNames from "classnames";
 import React from "react";
 import toast from "react-hot-toast";
@@ -51,7 +51,7 @@ export default function Show({
   return (
     <>
       <div className="min-h-screen bg-[#d8f7ea]">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
           <header className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg">
             <img
@@ -72,10 +72,10 @@ export default function Show({
         </div>
 
         <div className="py-6">
-          <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-6">
             <div className="text-dark-alt">
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
-                <div className="col-span-4 bg-white shadow-lg p-4 rounded-lg">
+              <div className="flex flex-col md:flex-row gap-2">
+                <div className="w-full md:w-[70%] bg-white shadow p-4 rounded-lg">
                   <div className="flex items-start gap-4">
                     <img
                       src={umkm.logo_url}
@@ -85,133 +85,62 @@ export default function Show({
                     <div>
                       <h1 className="font-semibold text-xl">{umkm.name}</h1>
                       <p>{umkm.ratings.total} Testimoni</p>
-                      <p>{umkm.ratings.average}</p>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <RiStarFill
+                              key={i}
+                              className={`w-5 h-5 ${i < Math.round(umkm.ratings.average) ? "text-yellow-500" : "text-gray-300"}`}
+                            />
+                          ))}
+                        </div>
+                        <span>{umkm.ratings.average}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-span-2 grid gap-2">
-                  <div className="bg-white shadow-lg p-4 rounded-lg flex items-center gap-2">
+                <div className="w-full md:w-[30%] grid gap-2">
+                  <div className="bg-white shadow p-4 rounded-lg flex items-center gap-2">
                     <RiWhatsappLine className="w-6 h-6" />
                     <span>{umkm.whatsapp_number}</span>
                   </div>
-                  <div className="bg-white shadow-lg p-4 rounded-lg flex items-center gap-2">
+                  <div className="bg-white shadow p-4 rounded-lg flex items-center gap-2">
                     <RiMapPinLine className="w-6 h-6" />
                     <span>{umkm.location}</span>
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-2 mt-4">
-                <div className="col-span-4 bg-white shadow-lg p-4 rounded-lg">
+              <div className="flex flex-col md:flex-row gap-2 mt-2">
+                <div className="w-full md:w-[70%] bg-white shadow p-4 rounded-lg">
                   <h1 className="font-bold text-xl">Tentang {umkm.name}</h1>
                   <p>{umkm.description}</p>
                 </div>
-                <div className="col-span-2 bg-white shadow-lg p-4 rounded-lg">
+                <div className="w-full md:w-[30%] bg-white shadow p-4 rounded-lg">
                   <h1 className="font-bold text-xl">Reviews</h1>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-4">
-                <div className="col-span-4 bg-white shadow-lg p-4 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src=""
-                      alt="Profile Picture"
-                    />
-                    <div>
-                      <h2 className="font-semibold">Jazz</h2>
-                      <p className="text-sm text-gray-500">20 Kontribusi</p>
-                    </div>
-                  </div>
-
                   <div className="mt-4">
-                    <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
-                  </div>
-
-                  <div className="mt-4">
-                    <p className="text-gray-600">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Provident voluptatibus quidem eaque ipsam reprehenderit
-                      libero dolores? Beatae nesciunt velit itaque quis aliquam
-                      animi iste, iure minus voluptates doloremque libero
-                      quaerat.
-                    </p>
+                    {[5, 4, 3, 2, 1].map((star) => {
+                      const percentage = (umkm.ratings[star.toString() as keyof typeof umkm.ratings] / umkm.ratings.total) * 100;
+                      return (
+                        <div key={star} className="flex items-center gap-2">
+                          <span className="w-4 text-right font-semibold">{star}</span>
+                          <div className="w-full bg-primary-100 rounded-full h-3">
+                          <div
+                            className="bg-primary-300 h-3 rounded-full"
+                            style={{ width: `${percentage}%` }}
+                          ></div>
+                          </div>
+                          <span className="w-10 text-right">{percentage.toFixed()}%</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              
-            
-                <div className="col-span-2 grid gap-2">  
-                  {/*  */}
-                <div className=" bg-white  shadow-lg py-4 px-6 rounded-lg h-fit">
-                  <div className="flex justify-between items-center">
-                    <h1 className="font-bold text-xl">Filter:</h1>
-
-                    <div className="flex space-x-4">
-                      <div className="relative">
-                        <button className="bg-[#0B905B] text-white px-4 py-2 rounded-md text-sm flex items-center space-x-2transition duration-200">
-                          <span>Bintang</span>
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-
-                      <div className="relative">
-                        <button className="bg-[#0B905B] text-white px-4 py-2 rounded-md text-sm flex items-center space-x-2 transition duration-200">
-                          <span>Terbaru</span>
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>                   
-                  </div>                 
-                </div>
-                {/*  */}
-                <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
-                 <h2 className="font-semibold text-xl text-slate-900">Mungkin Anda Juga Suka</h2>
-                 <div className="flex items-center space-x-4 mt-4">
-                    <img
-                      className="w-12 h-12 rounded-full"
-                      src=""
-                      alt="Lumidex Picture"
-                    />
-                    <div>
-                      <h2 className="font-bold text-md">Lumidex</h2>
-                      <p className="text-sm text-slate-500">2024 Testimoni</p>                     
-                    <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>                 
-                    </div>
-                  </div>             
               </div>
-                </div>              
-              </div>
-              
                 
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-4">
-                <div className="col-span-4">
+              <div className="flex flex-col md:flex-row gap-2 mt-4">
+                <div className="w-full md:w-[70%]">
                   {props.auth.user?.id !== umkm.user_id && (
-                    <div className="bg-white shadow-lg p-4 rounded-lg">
+                    <div className="bg-white shadow p-4 rounded-lg">
                       {props.auth.user ? (
                         <>
                           <div>
@@ -290,21 +219,51 @@ export default function Show({
                     return (
                       <div
                         key={idx}
-                        className="bg-white shadow-lg p-4 rounded-lg mt-4"
+                        className="bg-white shadow p-4 rounded-lg mt-4"
                       >
-                        <img
-                          src={x.author?.profile_photo_url}
-                          alt={x.author?.name}
-                          className="w-10 h-10"
-                        />
-                        <p>{x.author?.name}</p>
-                        <p>{x.rating} bintang</p>
-                        <p>{x.review}</p>
+                        <div className="flex items-center space-x-4">
+                          <img
+                            className="w-12 h-12 rounded-full"
+                            src={x.author?.profile_photo_url}
+                            alt="Profile Picture"
+                          />
+                          <div>
+                            <h2 className="font-semibold">{x.author?.name}</h2>
+                            <p className="text-sm text-gray-500">20 Kontribusi</p>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <RiStarFill className={`w-5 h-5 ${i < x.rating ? "text-yellow-500" : "text-gray-300"}`} />
+                          ))}
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="text-gray-600">
+                            {x.review}
+                          </p>
+                        </div>
                       </div>
                     );
                   })}
                 </div>
-                <div></div>
+                <div className="w-full md:w-[30%]">
+                  <div className="bg-white rounded-lg p-4 shadow">
+                    <h1 className="font-bold text-xl">Mungkin Anda Juga Suka</h1>
+                    <div className="flex items-center space-x-4 mt-4">
+                        <img
+                          className="w-12 h-12 rounded-full"
+                          src=""
+                          alt="Lumidex Picture"
+                        />
+                        <div>
+                          <h2 className="font-bold text-md">Lumidex</h2>
+                          <p className="text-sm text-slate-500">2024 Testimoni</p>                     
+                        <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>                 
+                        </div>
+                      </div>             
+                  </div>
+                </div>
               </div>
             </div>
           </div>
