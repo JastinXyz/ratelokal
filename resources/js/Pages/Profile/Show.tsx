@@ -8,6 +8,7 @@ import useTypedPage from '@/Hooks/useTypedPage';
 import SectionBorder from '@/Components/SectionBorder';
 import AppLayout from '@/Layouts/AppLayout';
 import { Session } from '@/types';
+import UpdateRoleForm from './Partials/UpdateRoleForm';
 
 interface Props {
   sessions: Session[];
@@ -46,6 +47,12 @@ export default function Show({
               <SectionBorder />
             </div>
           ) : null}
+
+          <div className="mt-10 sm:mt-0">
+              <UpdateRoleForm roles={page.props.auth.roles as any} />
+
+              <SectionBorder />
+            </div>
 
           {page.props.jetstream.canManageTwoFactorAuthentication ? (
             <div className="mt-10 sm:mt-0">

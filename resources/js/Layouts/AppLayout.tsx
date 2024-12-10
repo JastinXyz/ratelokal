@@ -11,6 +11,7 @@ import DropdownLink from '@/Components/DropdownLink';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Team } from '@/types';
+import { Toaster } from 'react-hot-toast';
 
 interface Props {
   title: string;
@@ -49,6 +50,7 @@ export default function AppLayout({
     <div>
       <Head title={title} />
 
+      <Toaster />
       <Banner />
 
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
