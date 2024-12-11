@@ -124,12 +124,12 @@ export default function Show({
                 </div>
                 <div className="w-full md:w-[30%] grid gap-2">
                   <div className="bg-white shadow p-4 rounded-lg flex items-center gap-2">
-                    <RiWhatsappLine className="w-6 h-6" />
-                    <span>{umkm.whatsapp_number}</span>
+                    <div className="flex-shrink-0"><RiWhatsappLine className="w-6 h-6" /></div>
+                    <span className="text-sm">{umkm.whatsapp_number}</span>
                   </div>
                   <div className="bg-white shadow p-4 rounded-lg flex items-center gap-2">
-                    <RiMapPinLine className="w-6 h-6" />
-                    <span>{umkm.location}</span>
+                    <div className="flex-shrink-0"><RiMapPinLine className="w-6 h-6" /></div>
+                    <span className="text-sm">{umkm.location}</span>
                   </div>
                 </div>
               </div>
