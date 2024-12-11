@@ -25,7 +25,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <Head title={"LandingPage - RateLokal"} />
+      <Head title={"Welcome - RateLokal"} />
       <div className="min-h-[40rem] bg-[#17B271] rounded-b-[3rem]">
         <div className="flex justify-between items-center pt-8 sm:px-6 lg:px-8 max-w-7xl mx-auto px-4">
           <Link href="/">
