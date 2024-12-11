@@ -98,16 +98,15 @@ export default function LandingPage() {
             Tempat di mana Anda bisa menemukan bisnis lokal yang inovatif dan berkualitas.
             </p>
 
-            <div className="relative w-full max-w-md mx-auto">
+            <form action="/search" className="relative w-full max-w-md mx-auto">
               <RiSearch2Line className="w-6 h-6 text-white absolute top-3 left-3" />
               <input
                 type="text"
                 placeholder="cari umkm..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                name="q"
                 className="w-full p-3 rounded-full pl-10 text-white bg-[#73E2AC] border-none focus:outline-none placeholder:text-white"
               />
-            </div>
+            </form>
             <div className="mt-28 flex justify-center">
               <a href="#keunggulan">
                 <RiArrowDownCircleLine className="w-8 h-8 animate-bounce text-white" />
@@ -225,7 +224,7 @@ export default function LandingPage() {
 
           <div className="lg:flex lg:items-end lg:justify-between">
             <div>
-              <div className="flex">
+              <div className="flex justify-center">
                 <ApplicationLogo className="text-white w-56 h-auto" />
               </div>
 

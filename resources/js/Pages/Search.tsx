@@ -9,11 +9,11 @@ import axios from "axios";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Navbar from "@/Components/Navbar";
 
-export default function SearchUMKM() {
+export default function SearchUMKM({ q }: { q: string }) {
   let route = useRoute();
   let [UMKM, setUMKM] = useState<UMKM[]>();
   let [rawUMKM, setRawUMKM] = useState();
-  let [searchQuery, setSearchQuery] = useState("");
+  let [searchQuery, setSearchQuery] = useState(q ? q : "");
   let [currentPage, setCurrentPage] = useState(1);
   let [lastPage, setLastPage] = useState(1);
 

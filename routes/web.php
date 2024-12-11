@@ -14,7 +14,8 @@ Route::get('/', function () {
     return Inertia::render('LandingPage');
 });
 Route::get('/search', function () {
-    return Inertia::render('Search');
+    $q = request()->query('q');
+    return Inertia::render('Search', ['q' => $q]);
 });
 
 // Route::get('/', function () {
