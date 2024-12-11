@@ -84,7 +84,7 @@ export default function SearchUMKM({ q }: { q: string }) {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {UMKM?.map((x, idx) => (
                   <div key={idx}>
-                    <div className="bg-white rounded-lg p-4 shadow overflow-hidden">
+                    <div className="bg-white rounded-lg p-4 shadow overflow-hidden h-full">
                       <div className="flex flex-row gap-4">
                         <div>
                           <img
