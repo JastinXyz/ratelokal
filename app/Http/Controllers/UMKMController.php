@@ -46,7 +46,7 @@ class UMKMController extends Controller
         $umkm = UMKM::with(['reviews', 'reviews.author'])->findOrFail($umkm);
         return inertia('UMKM/Show', [
             'umkm' => $umkm,
-            'hasReviewed' => DB::table('reviews')->where('model_type', 'App\Models\UMKM')->where('model_id', $umkm->id)->where('author_id', Auth::id())->where('author_type', 'App\Models\User')->first()
+            'hasReviewed' => config('review-rating.review_model')::with('author')->where('model_type', 'App\Models\UMKM')->where('model_id', $umkm->id)->where('author_id', Auth::id())->where('author_type', 'App\Models\User')->first()
         ]);
     }
 

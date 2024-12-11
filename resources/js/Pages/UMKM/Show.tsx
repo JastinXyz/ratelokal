@@ -1,14 +1,18 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import DangerButton from "@/Components/DangerButton";
+import DialogModal from "@/Components/DialogModal";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 import TextArea from "@/Components/TextArea";
+import WarningButton from "@/Components/WarningButton";
 import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
+import Dayjs from "@/lib/dayjs";
 import { Review, UMKM } from "@/types";
 import { Link, useForm } from "@inertiajs/react";
-import { RiMapPinLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
+import { RiCalendar2Line, RiDeleteBin6Line, RiEditBoxLine, RiErrorWarningLine, RiMapPinLine, RiMore2Line, RiMoreLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import axios from "axios";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
@@ -22,8 +26,10 @@ export default function Show({
   hasReviewed: Review;
 }) {
   let { props } = useTypedPage();
-  let [recommend, setRecommend] = useState<UMKM[]>();
   let route = useRoute();
+  let [recommend, setRecommend] = useState<UMKM[]>();
+  let [editModal, setEditModal] = useState(false);
+  
   let form = useForm({
     description: hasReviewed ? hasReviewed.review : "",
     rate: hasReviewed ? hasReviewed.rating : "",
@@ -32,6 +38,8 @@ export default function Show({
   let submitRate = () => {
     form.post(route("umkm.rate", umkm.id), {
       onSuccess: () => {
+        form.reset();
+        setEditModal(false)
         toast.success("Berhasil Terkirim!");
       },
       onError: () => {
@@ -73,6 +81,11 @@ export default function Show({
     fetchRecommend()
   }, [])
 
+  function closeEditModal() {
+    setEditModal(false);
+    form.reset();
+  }
+
   return (
     <>
       <div className="min-h-screen bg-[#d8f7ea]">
@@ -97,7 +110,7 @@ export default function Show({
                     <img
                       src={umkm.logo_url}
                       alt="Brand Logo"
-                      className="h-20 w-20 object-cover"
+                      className="h-20 w-20 object-cover rounded"
                     />
                     <div>
                       <h1 className="font-semibold text-xl">{umkm.name}</h1>
@@ -146,7 +159,7 @@ export default function Show({
                             style={{ width: `${percentage}%` }}
                           ></div>
                           </div>
-                          <span className="w-10 text-right">{percentage.toFixed()}%</span>
+                          <span className="w-10 text-right text-sm">{percentage.toFixed()}%</span>
                         </div>
                       );
                     })}
@@ -156,33 +169,30 @@ export default function Show({
                 
               <div className="flex flex-col md:flex-row gap-2 mt-4">
                 <div className="w-full md:w-[70%]">
-                  {props.auth.user?.id !== umkm.user_id && (
+                  {(props.auth.user?.id !== umkm.user_id && !hasReviewed) && (
                     <div className="bg-white shadow p-4 rounded-lg">
                       {props.auth.user ? (
                         <>
-                          <div>
-                            <div className="flex items-center">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <svg
-                                  key={star}
-                                  className={`w-6 h-6 cursor-pointer ${
-                                    (form.data.rate as any) >= star
-                                      ? "text-yellow-500"
-                                      : "text-gray-300"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  onClick={() =>
-                                    form.setData("rate", star as any)
-                                  }
-                                >
-                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
-                                </svg>
-                              ))}
+                          <div className="flex justify-center mt-2">
+                            <div>
+                              <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <RiStarFill 
+                                    key={star}
+                                    className={`w-10 h-10 cursor-pointer ${
+                                      (form.data.rate as any) >= star
+                                        ? "text-yellow-500"
+                                        : "text-gray-300"
+                                    }`}
+                                    onClick={() =>
+                                      form.setData("rate", star as any)
+                                    }
+                                  />
+                                ))}
+                              </div>
                             </div>
                           </div>
-                          <div>
+                          <div className="mt-4">
                             <InputLabel
                               htmlFor="description"
                               value="Deskripsi"
@@ -204,11 +214,6 @@ export default function Show({
                             />
                           </div>
                           <div className="mt-2 flex items-center justify-end gap-2">
-                            {hasReviewed && (
-                              <DangerButton onClick={destroyRate}>
-                                Hapus Review
-                              </DangerButton>
-                            )}
                             <PrimaryButton
                               onClick={submitRate}
                               className={classNames({
@@ -228,15 +233,129 @@ export default function Show({
                           </div>
                         </>
                       ) : (
-                        <>Login Dulu</>
+                        <div className="flex justify-center">
+                          <Link href="/login">
+                            <PrimaryButton className="flex gap-2">
+                              <RiErrorWarningLine className="w-4 h-4" />
+                              <span>Masuk/Daftar Untuk Membuat Review</span>
+                            </PrimaryButton>
+                          </Link>
+                        </div>
                       )}
                     </div>
                   )}
-                  {umkm.reviews.map((x, idx) => {
+                  {hasReviewed && (
+                    <>
+                      <div
+                        className="bg-white shadow p-4 rounded-lg"
+                      >
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center space-x-4">
+                            <img
+                              className="w-12 h-12 rounded-full"
+                              src={hasReviewed.author?.profile_photo_url}
+                              alt="Profile Picture"
+                            />
+                            <div>
+                              <h2 className="font-semibold">{hasReviewed.author?.name}</h2>
+                              <p className="text-sm text-gray-500">{hasReviewed.author?.review_total} Kontribusi</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <DangerButton onClick={destroyRate}>
+                              <RiDeleteBin6Line className="w-4 h-4" />
+                            </DangerButton>
+                            <WarningButton onClick={() => {
+                              form.setData('rate', hasReviewed.rating)
+                              setEditModal(true)
+                            }}>
+                              <RiEditBoxLine className="w-4 h-4" />
+                            </WarningButton>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <RiStarFill className={`w-5 h-5 ${i < hasReviewed.rating ? "text-yellow-500" : "text-gray-300"}`} />
+                          ))}
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="text-gray-600">
+                            {hasReviewed.review}
+                          </p>
+                        </div>
+                        <div className="mt-2 flex justify-end gap-2 items-center">
+                          <div className="flex-shrink-0"><RiCalendar2Line className="w-4 h-4" /></div>
+                          <p className="text-xs">{Dayjs(hasReviewed.created_at).format('dddd, DD MMMM YYYY')}</p>
+                        </div>
+                      </div>
+                      <DialogModal isOpen={editModal} onClose={closeEditModal}>
+                        <DialogModal.Content title={"Ubah Review"}>
+                        <div className="flex justify-center mt-2">
+                            <div>
+                              <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <RiStarFill 
+                                    key={star}
+                                    className={`w-10 h-10 cursor-pointer ${
+                                      (form.data.rate as any) >= star
+                                        ? "text-yellow-500"
+                                        : "text-gray-300"
+                                    }`}
+                                    onClick={() =>
+                                      form.setData("rate", star as any)
+                                    }
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-4">
+                            <InputLabel
+                              htmlFor="description"
+                              value="Deskripsi"
+                            />
+                            <TextArea
+                              id="description"
+                              className="mt-1 block w-full"
+                              defaultValue={hasReviewed.review}
+                              onChange={(e) =>
+                                form.setData(
+                                  "description",
+                                  e.currentTarget.value
+                                )
+                              }
+                            />
+                            <InputError
+                              message={form.errors.description}
+                              className="mt-2"
+                            />
+                          </div>
+                        </DialogModal.Content>
+
+                        <DialogModal.Footer>
+                          <SecondaryButton onClick={closeEditModal}>Cancel</SecondaryButton>
+
+                          <PrimaryButton
+                            className={classNames('ml-2', { 'opacity-25': form.processing ||
+                              !form.data.description ||
+                              !form.data.rate })}
+                            onClick={submitRate}
+                            disabled={form.processing ||
+                              !form.data.description ||
+                              !form.data.rate}
+                          >
+                            Simpan
+                          </PrimaryButton>
+                        </DialogModal.Footer>
+                      </DialogModal>
+                    </>
+                  )}
+                  {umkm.reviews.filter((x) => x.author?.id !== props.auth.user?.id).map((x, idx) => {
                     return (
                       <div
                         key={idx}
-                        className="bg-white shadow p-4 rounded-lg mt-4"
+                        className="bg-white shadow p-4 rounded-lg mt-2"
                       >
                         <div className="flex items-center space-x-4">
                           <img
@@ -259,6 +378,10 @@ export default function Show({
                           <p className="text-gray-600">
                             {x.review}
                           </p>
+                        </div>
+                        <div className="mt-2 flex justify-end gap-2 items-center">
+                          <div className="flex-shrink-0"><RiCalendar2Line className="w-4 h-4" /></div>
+                          <p className="text-xs">{Dayjs(x.created_at).format('dddd, DD MMMM YYYY')}</p>
                         </div>
                       </div>
                     );
