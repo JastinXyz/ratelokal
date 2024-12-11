@@ -435,7 +435,7 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
                               alt="Logo"
                             />
                             <div>
-                              <h2 className="font-bold text-md">{x.name}</h2>
+                              <h2 className="font-bold text-md text-dark-alt">{x.name}</h2>
                               <p className="text-sm text-slate-500">{x.ratings.total} Testimoni</p>                     
                               <div className="flex items-center gap-2">
                               <div className="flex items-center gap-1">
