@@ -88,7 +88,7 @@ export default function Show({
 
   return (
     <>
-      <div className="min-h-screen bg-[#d8f7ea]">
+      <div className="min-h-screen bg-[#F3F4F6]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
           <div className="flex justify-between items-center bg-white shadow p-4 rounded-lg">

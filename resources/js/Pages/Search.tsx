@@ -57,7 +57,7 @@ export default function SearchUMKM() {
     <>
       <Head title={"RateUMKM - RateLokal"} />
 
-      <div className="min-h-screen bg-[#d8f7ea]">
+      <div className="min-h-screen bg-[#F3F4F6]">
         {/* Navbar */}
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
