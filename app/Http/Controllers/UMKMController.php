@@ -50,8 +50,13 @@ class UMKMController extends Controller
         ]);
     }
 
-    public function recommend($umkm) {
-        $recommendedUMKM = UMKM::where('id', '!=', $umkm)->inRandomOrder()->take(3)->get();
+    public function recommend($umkm = null) {
+        if ($umkm) {
+            $recommendedUMKM = UMKM::where('id', '!=', $umkm)->inRandomOrder()->take(3)->get();
+        } else {
+            $recommendedUMKM = UMKM::inRandomOrder()->take(3)->get();
+        }
+        
         return response()->json($recommendedUMKM);
     }
 }

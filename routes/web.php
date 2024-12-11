@@ -42,10 +42,12 @@ Route::middleware([
 
     Route::post('/api/umkm/{umkm}/rate', [UMKMController::class, 'rate'])->name('umkm.rate');
     Route::delete('/api/umkm/{umkm}/rate', [UMKMController::class, 'destroyRate'])->name('umkm.destroyRate');
+
+    Route::get('/api/reviews', [AnotherProfileController::class, 'apiReviews'])->name('profile.apiReviews');
 });
 
 Route::get('/api/umkm', [UMKMController::class, 'apiIndex'])->name('umkm.apiIndex');
-Route::get('/api/umkm/recommend/{umkm}', [UMKMController::class, 'recommend'])->name('umkm.recommend');
+Route::get('/api/umkm/recommend/{umkm?}', [UMKMController::class, 'recommend'])->name('umkm.recommend');
 Route::get('/umkm/{umkm}', [UMKMController::class, 'show'])->name('umkm.show');
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');

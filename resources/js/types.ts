@@ -122,6 +122,7 @@ export interface Review {
   rating: number;
   model_type: string;
   model_id: number;
+  model?: UMKM;
   author_type: string;
   author_id: number;
   author?: User;
