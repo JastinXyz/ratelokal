@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link } from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import { RiArrowDownCircleLine, RiSearch2Line } from "@remixicon/react";
+import {
+  RiArrowDownCircleLine,
+  RiSearch2Line,
+  RiMenuLine,
+  RiCloseLine,
+} from "@remixicon/react";
 
 export default function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <>
       <Head title={"LandingPage - RateLokal"} />
       <div className="min-h-[40rem] bg-[#17B271] rounded-b-[3rem]">
-        <div className="flex justify-between items-center pt-8 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center pt-8 sm:px-6 lg:px-8 max-w-7xl mx-auto px-4">
           <div>
-            <ApplicationLogo className="text-white w-56 h-auto" />
+            <ApplicationLogo className="text-white w-40 h-auto" />
           </div>
 
-          <div className="flex space-x-4">
+          <div className="hidden md:flex space-x-4">
             <Link href="/search">
               <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
                 Cari
@@ -27,16 +37,60 @@ export default function LandingPage() {
               </button>
             </Link>
           </div>
+
+          <div className="md:hidden">
+            <button
+              onClick={toggleMobileMenu}
+              className="text-white focus:outline-none"
+            >
+              <RiMenuLine className="w-8 h-8" />
+            </button>
+          </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 z-50 bg-white overflow-y-auto">
+            <div className="flex flex-col h-screen">
+              <div className="flex justify-between items-center p-4 border-b">
+                <ApplicationLogo className="text-[#17B271] w-40 h-auto" />
+                <button
+                  onClick={toggleMobileMenu}
+                  className="text-[#17B271] focus:outline-none"
+                >
+                  <RiCloseLine className="w-8 h-8" />
+                </button>
+              </div>
+
+              <div className="flex flex-col flex-grow justify-center items-center space-y-6 px-4">
+                <Link href="/search" className="w-full">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="bg-[#17B271] text-white w-full max-w-md mx-auto px-4 py-3 rounded-lg hover:bg-opacity-90 transition-all text-lg"
+                  >
+                    Cari
+                  </button>
+                </Link>
+                <Link href="/login" className="w-full">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="bg-[#17B271] text-white w-full max-w-md mx-auto px-4 py-3 rounded-lg hover:bg-opacity-90 transition-all text-lg"
+                  >
+                    Masuk
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="mt-36">
           <div className="text-center w-full px-4 mt-8">
             <h1 className="text-4xl sm:text-5xl font-bold text-white max-w-3xl mx-auto mb-4">
-              Lorem Ipsum Dolor Sit Amet
+            Selamat datang di RateLokal
             </h1>
 
             <p className="text-lg sm:text-2xl text-white mb-8 max-w-3xl mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Tempat di mana Anda bisa menemukan bisnis lokal yang inovatif dan berkualitas.
             </p>
 
             <div className="relative w-full max-w-md mx-auto">
@@ -51,73 +105,98 @@ export default function LandingPage() {
             </div>
             <div className="mt-28 flex justify-center">
               <a href="#keunggulan">
-                <RiArrowDownCircleLine className="w-8 h-8 animate-bounce text-white"/>
+                <RiArrowDownCircleLine className="w-8 h-8 animate-bounce text-white" />
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      <section id="keunggulan" className="bg-white w-full py-12 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-black text-2xl sm:text-4xl text-left mb-2">
+      <section
+        id="keunggulan"
+        className="bg-white w-full py-12 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
+        <h2 className="text-black ml-5 text-2xl sm:text-4xl text-left mb-2">
           Beberapa <span className="font-bold">RateLokal</span> yang <br />{" "}
           dapat tawarkan
         </h2>
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-2 py-4">
-            <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
-                <div className="p-5">
-                  <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                    {/* <x-icons.robot  /> */}
-                  </div>
-                  <div className="mt-2">
-                    <h2 className="text-2xl font-bold text-white">Lorem Ipsum</h2>
-                    <p className="text-sm font-light text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates repellat esse quo.
-                    </p>
-                  </div>
-                </div>
-            </div>
-            <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
-                <div className="p-5">
-                  <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                    {/* <x-icons.user-x  /> */}
-                  </div>
-                  <div className="mt-2">
-                    <h2 className="text-2xl font-bold text-white">Lorem Ipsum</h2>
-                    <p className="text-sm font-light text-white">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat officia beatae repudiandae pariatur error ratione explicabo iusto blanditiis? Deleniti exercitationem sapiente nulla illum?
-                    </p>
-                  </div>
-                </div>
-            </div>
-            <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
-                <div className="p-5">
-                  <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                    {/* <x-icons.infinity  /> */}
-                  </div>
-                  <div className="mt-2">
-                    <h2 className="text-2xl font-bold text-white">Lorem Ipsum</h2>
-                    <p className="text-sm font-light text-white">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas, accusantium quidem ab numquam, qui excepturi, perspiciatis maxime sequi exercitationem nisi magni repudiandae perferendis.
-                    </p>
-                  </div>
-                </div>
-            </div>
-            <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
-                <div className="p-5">
-                  <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                    {/* <x-heroicon-s-academic-cap className="fill-white" /> */}
-                  </div>
-                  <div className="mt-2">
-                    <h2 className="text-2xl font-bold text-white">Lorem Ipsum</h2>
-                    <p className="text-sm font-light text-white">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dolorem impedit repudiandae quam qui.
-                    </p>
-                  </div>
-                </div>
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-2 px-5 py-4">
+          <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
+            <div className="p-5">
+              <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
+                {/* <x-icons.robot  /> */}
+              </div>
+              <div className="mt-2">
+                <h2 className="text-2xl font-bold text-white">
+                  Temukan UMKM Terbaik
+                </h2>
+                <p className="text-sm font-light text-white">
+                  Temukan berbagai UMKM yang berhasil memikat hati pelanggan
+                  dengan produk berkualitas. Kami menyajikan ulasan lengkap
+                  untuk membantu Anda menemukan usaha lokal terbaik.
+                </p>
+              </div>
             </div>
           </div>
+          <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
+            <div className="p-5">
+              <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
+                {/* <x-icons.user-x  /> */}
+              </div>
+              <div className="mt-2">
+                <h2 className="text-2xl font-bold text-white">
+                  Review UMKM: Menemukan Bisnis Lokal Terbaik
+                </h2>
+                <p className="text-sm font-light text-white">
+                  UMKM di Indonesia memiliki berbagai cerita inspiratif dan
+                  produk menarik. Kami hadir untuk memberikan ulasan mendalam
+                  tentang usaha lokal yang patut dicoba. Dari sektor makanan
+                  hingga kerajinan tangan, setiap review kami bertujuan untuk
+                  memberikan gambaran yang jelas dan membantu Anda mendukung
+                  bisnis lokal yang berkualitas.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
+            <div className="p-5">
+              <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
+                {/* <x-icons.infinity  /> */}
+              </div>
+              <div className="mt-2">
+                <h2 className="text-2xl font-bold text-white">
+                  Kisah Sukses UMKM di Indonesia
+                </h2>
+                <p className="text-sm font-light text-white">
+                  UMKM di Indonesia terus berkembang dengan berbagai inovasi. Di
+                  website ini, kami berbagi ulasan tentang berbagai bisnis lokal
+                  yang berhasil meraih kesuksesan. Temukan kisah inspiratif
+                  mereka dan dapatkan informasi tentang produk yang layak Anda
+                  coba. Kami percaya bahwa setiap usaha lokal memiliki potensi
+                  besar yang patut dihargai
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
+            <div className="p-5">
+              <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
+                {/* <x-heroicon-s-academic-cap className="fill-white" /> */}
+              </div>
+              <div className="mt-2">
+                <h2 className="text-2xl font-bold text-white">
+                  Mengulas Bisnis Lokal Berkualitas
+                </h2>
+                <p className="text-sm font-light text-white">
+                  Setiap UMKM memiliki cerita dan keunikan tersendiri. Di sini,
+                  kami memberikan review jujur untuk membantu Anda memilih
+                  produk dan layanan terbaik dari pelaku usaha lokal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className="bg-[#17B271]">
@@ -151,8 +230,8 @@ export default function LandingPage() {
               </div>
 
               <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-white lg:text-left">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Incidunt consequuntur amet culpa cum itaque neque.
+              Jelajahi berbagai UMKM lokal terbaik, dukung usaha kreatif, 
+              dan bantu perekonomian Indonesia tumbuh lebih maju.
               </p>
             </div>
 
