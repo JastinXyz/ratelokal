@@ -57,7 +57,7 @@ export default function SearchUMKM() {
     <>
       <Head title={"RateUMKM - RateLokal"} />
 
-      <div className="min-h-screen bg-[#d8f7ea]">
+      <div className="min-h-screen bg-[#F3F4F6]">
         {/* Navbar */}
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
@@ -92,7 +92,7 @@ export default function SearchUMKM() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {UMKM?.map((x, idx) => (
                 <div key={idx}>
-                  <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
+                  <div className="bg-white rounded-lg p-4 shadow overflow-hidden">
                     <div className="flex flex-row gap-4">
                       <div>
                         <img

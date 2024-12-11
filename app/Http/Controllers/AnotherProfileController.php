@@ -57,4 +57,11 @@ class AnotherProfileController extends Controller
         $umkm->whatsapp_number = $request->whatsapp_number;
         $umkm->save();
     }
+
+    public function apiReviews() {
+        /** @var App\Models\User */
+        $user = Auth::user();
+
+        return $user->reviews()->with(['model', 'author'])->paginate(10);
+    }
 }

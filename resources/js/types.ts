@@ -20,6 +20,7 @@ export interface User {
   two_factor_enabled: boolean;
   email_verified_at: Nullable<DateTime>;
   review_total: number;
+  reviews?: Review[];
   created_at: DateTime;
   updated_at: DateTime;
 }
@@ -121,6 +122,7 @@ export interface Review {
   rating: number;
   model_type: string;
   model_id: number;
+  model?: UMKM;
   author_type: string;
   author_id: number;
   author?: User;
