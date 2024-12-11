@@ -318,6 +318,7 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
               <div className="flex md:flex-row flex-col-reverse gap-4">
                 <div className='w-full md:w-[70%]'>
                   <div className="flex flex-col gap-4">
+                    {reviews?.length ? '' : <div className='text-center'>Belum Ada Review Satupun</div>}
                   {reviews?.map((x, idx) => (
                     <div key={idx}>
                       <div className="bg-white rounded-lg p-4 shadow overflow-hidden h-full">
