@@ -7,8 +7,11 @@ import {
   RiMenuLine,
   RiCloseLine,
 } from "@remixicon/react";
+import PrimaryButton from "@/Components/PrimaryButton";
+import useTypedPage from "@/Hooks/useTypedPage";
 
 export default function LandingPage() {
+  let { props } = useTypedPage();
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -21,9 +24,9 @@ export default function LandingPage() {
       <Head title={"LandingPage - RateLokal"} />
       <div className="min-h-[40rem] bg-[#17B271] rounded-b-[3rem]">
         <div className="flex justify-between items-center pt-8 sm:px-6 lg:px-8 max-w-7xl mx-auto px-4">
-          <div>
+          <Link href="/">
             <ApplicationLogo className="text-white w-40 h-auto" />
-          </div>
+          </Link>
 
           <div className="hidden md:flex space-x-4">
             <Link href="/search">
@@ -31,11 +34,19 @@ export default function LandingPage() {
                 Cari
               </button>
             </Link>
-            <Link href="/login">
-              <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Masuk
-              </button>
-            </Link>
+            {props.auth.user ? (
+              <Link href="/dashboard">
+                <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
+                  Dashboard
+                </button>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
+                  Masuk
+                </button>
+              </Link>
+            )}
           </div>
 
           <div className="md:hidden">
@@ -61,22 +72,12 @@ export default function LandingPage() {
                 </button>
               </div>
 
-              <div className="flex flex-col flex-grow justify-center items-center space-y-6 px-4">
+              <div className="flex flex-col flex-grow justify-center items-center space-y-4 px-4">
                 <Link href="/search" className="w-full">
-                  <button
-                    onClick={toggleMobileMenu}
-                    className="bg-[#17B271] text-white w-full max-w-md mx-auto px-4 py-3 rounded-lg hover:bg-opacity-90 transition-all text-lg"
-                  >
-                    Cari
-                  </button>
+                  <PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Cari</PrimaryButton>
                 </Link>
                 <Link href="/login" className="w-full">
-                  <button
-                    onClick={toggleMobileMenu}
-                    className="bg-[#17B271] text-white w-full max-w-md mx-auto px-4 py-3 rounded-lg hover:bg-opacity-90 transition-all text-lg"
-                  >
-                    Masuk
-                  </button>
+                  {props.auth.user ? <Link href="/dashboard"><PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Dashboard</PrimaryButton></Link> : <Link href="/login"><PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Masuk</PrimaryButton></Link>}
                 </Link>
               </div>
             </div>

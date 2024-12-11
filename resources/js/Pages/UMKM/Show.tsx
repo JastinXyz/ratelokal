@@ -1,8 +1,10 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import DangerButton from "@/Components/DangerButton";
 import DialogModal from "@/Components/DialogModal";
+import Dropdown from "@/Components/Dropdown";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import Navbar from "@/Components/Navbar";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextArea from "@/Components/TextArea";
@@ -11,8 +13,8 @@ import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
 import Dayjs from "@/lib/dayjs";
 import { Review, UMKM } from "@/types";
-import { Link, useForm } from "@inertiajs/react";
-import { RiCalendar2Line, RiDeleteBin6Line, RiEditBoxLine, RiErrorWarningLine, RiMapPinLine, RiMore2Line, RiMoreLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import { RiCalendar2Line, RiDeleteBin6Line, RiEditBoxLine, RiErrorWarningLine, RiMapPinLine, RiMenuLine, RiMore2Line, RiMoreLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import axios from "axios";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
@@ -88,18 +90,9 @@ export default function Show({
 
   return (
     <>
+      <Head title={`${umkm.name} - RateLokal`} />
       <div className="min-h-screen bg-[#F3F4F6]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="h-8"></div>
-          <div className="flex justify-between items-center bg-white shadow p-4 rounded-lg">
-            <Link href="/"><ApplicationLogo className="text-primary-500 w-36 h-auto" /></Link>
-
-            <div className="flex gap-2">
-              <Link href="/search"><PrimaryButton className="flex gap-2"><RiSearch2Line className="w-4 h-4" /> <span>Cari</span></PrimaryButton></Link>
-              <Link href="/login"><PrimaryButton>Masuk</PrimaryButton></Link>
-            </div>
-          </div>
-        </div>
+        <Navbar />
 
         <div className="py-6">
           <div className="max-w-7xl mx-auto px-6">
@@ -261,16 +254,42 @@ export default function Show({
                               <p className="text-sm text-gray-500">{hasReviewed.author?.review_total} Kontribusi</p>
                             </div>
                           </div>
-                          <div className="flex gap-2">
-                            <DangerButton onClick={destroyRate}>
-                              <RiDeleteBin6Line className="w-4 h-4" />
-                            </DangerButton>
-                            <WarningButton onClick={() => {
-                              form.setData('rate', hasReviewed.rating)
-                              setEditModal(true)
-                            }}>
-                              <RiEditBoxLine className="w-4 h-4" />
-                            </WarningButton>
+                          <div>
+                            <div className="md:flex gap-2 hidden">
+                              <DangerButton onClick={destroyRate}>
+                                <RiDeleteBin6Line className="w-4 h-4" />
+                              </DangerButton>
+                              <WarningButton onClick={() => {
+                                form.setData('rate', hasReviewed.rating)
+                                setEditModal(true)
+                              }}>
+                                <RiEditBoxLine className="w-4 h-4" />
+                              </WarningButton>
+                            </div>
+                            <div className="block md:hidden cursor-pointer">
+                            <Dropdown
+                              align="right"
+                              width="60"
+                              renderTrigger={() => (
+                                <>
+                                  <RiMore2Line className="w-5 h-5" />
+                                </>
+                              )}
+                            >
+                              <div className="p-2 flex flex-col gap-2">
+                                <DangerButton onClick={destroyRate} className="flex gap-2">
+                                  <RiDeleteBin6Line className="w-4 h-4" /> <span>Hapus</span>
+                                </DangerButton>
+                                <WarningButton className="flex gap-2" onClick={() => {
+                                  form.setData('rate', hasReviewed.rating)
+                                  setEditModal(true)
+                                }}>
+                                  <RiEditBoxLine className="w-4 h-4" />
+                                  <span>Edit</span>
+                                </WarningButton>
+                              </div>
+                            </Dropdown>
+                            </div>
                           </div>
                         </div>
                         <div className="mt-4 flex gap-1">
