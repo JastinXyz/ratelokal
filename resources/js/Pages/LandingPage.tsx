@@ -6,6 +6,10 @@ import {
   RiSearch2Line,
   RiMenuLine,
   RiCloseLine,
+  RiStore2Line,
+  RiSparklingLine,
+  RiUserStarLine,
+  RiPuzzleLine,
 } from "@remixicon/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import useTypedPage from "@/Hooks/useTypedPage";
@@ -126,7 +130,7 @@ export default function LandingPage() {
           <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
             <div className="p-5">
               <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                {/* <x-icons.robot  /> */}
+                <RiStore2Line className="w-8 h-8 text-white" />
               </div>
               <div className="mt-2">
                 <h2 className="text-2xl font-bold text-white">
@@ -143,19 +147,14 @@ export default function LandingPage() {
           <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
             <div className="p-5">
               <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                {/* <x-icons.user-x  /> */}
+                <RiSparklingLine className="w-8 h-8 text-white" />
               </div>
               <div className="mt-2">
                 <h2 className="text-2xl font-bold text-white">
-                  Review UMKM: Menemukan Bisnis Lokal Terbaik
+                  Ulasan Eksklusif untuk UMKM Lokal Terbaik!
                 </h2>
                 <p className="text-sm font-light text-white">
-                  UMKM di Indonesia memiliki berbagai cerita inspiratif dan
-                  produk menarik. Kami hadir untuk memberikan ulasan mendalam
-                  tentang usaha lokal yang patut dicoba. Dari sektor makanan
-                  hingga kerajinan tangan, setiap review kami bertujuan untuk
-                  memberikan gambaran yang jelas dan membantu Anda mendukung
-                  bisnis lokal yang berkualitas.
+                  UMKM lokal penuh dengan produk-produk istimewa yang patut mendapatkan perhatian lebih. Kami hadir untuk memberikan ulasan mendalam tentang usaha-usaha yang telah berhasil mencuri perhatian dengan kualitas dan kreativitasnya. Temukan produk unggulan, dukung usaha lokal, dan rasakan manfaatnya!
                 </p>
               </div>
             </div>
@@ -163,7 +162,7 @@ export default function LandingPage() {
           <div className="bg-primary-500 shadow rounded-3xl group cursor-default md:col-span-2">
             <div className="p-5">
               <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                {/* <x-icons.infinity  /> */}
+                <RiUserStarLine className="w-8 h-8 text-white" />
               </div>
               <div className="mt-2">
                 <h2 className="text-2xl font-bold text-white">
@@ -183,7 +182,7 @@ export default function LandingPage() {
           <div className="bg-primary-500 shadow rounded-3xl group cursor-default">
             <div className="p-5">
               <div className="h-16 w-16 bg-primary-600 rounded-xl p-4">
-                {/* <x-heroicon-s-academic-cap className="fill-white" /> */}
+                <RiPuzzleLine className="w-8 h-8 text-white" />
               </div>
               <div className="mt-2">
                 <h2 className="text-2xl font-bold text-white">
