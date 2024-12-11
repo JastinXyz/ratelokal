@@ -3,7 +3,7 @@ import TextInput from "@/Components/TextInput";
 import useRoute from "@/Hooks/useRoute";
 import { UMKM } from "@/types";
 import { Head, Link } from "@inertiajs/react";
-import { RiArrowLeftSLine, RiArrowRightSLine, RiMapPin2Line, RiSearch2Line, RiWhatsappLine } from "@remixicon/react";
+import { RiArrowLeftSLine, RiArrowRightSLine, RiMapPin2Line, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ApplicationLogo from "@/Components/ApplicationLogo";
@@ -89,7 +89,7 @@ export default function SearchUMKM() {
 
         <section className="mt-8 pb-16">
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {UMKM?.map((x, idx) => (
                 <div key={idx}>
                   <div className="bg-white rounded-lg p-4 shadow hover:shadow-lg overflow-hidden">
@@ -98,30 +98,37 @@ export default function SearchUMKM() {
                         <img
                           src={x.logo_url}
                           alt="Logo"
-                          className="w-28 h-28"
+                          className="w-28 h-28 rounded"
                         ></img>
                       </div>
                       <div>
-                        <h3 className="text-gray-700 text-xl font-bold">
-                          {x.name}
-                        </h3>
-                        <p className=" text-sm text-gray-500">{x.ratings.total} Testimoni</p>
-                        <div className="flex  items-center">
-                          <span className="text-yellow-400 text-2xl">★★★★★</span>
-                        </div>
+                        
                       </div>
                     </div>
-                    <hr className="my-6 border-slate-900"></hr>
-
-                    <p className="text-gray-600 text-sm flex items-center gap-2">
-                      <RiWhatsappLine className="text-primary-500 w-6 h-6" />
-                      <span>{x.whatsapp_number}</span>
-                    </p>
-                    <p className="text-gray-600 text-sm flex items-center mt-2 gap-2">
-                      <RiMapPin2Line className="text-indigo-500 w-6 h-6" />
-                      <span>{x.location}</span>
-                    </p>
-                    <div className="mt-4">
+                    <h3 className="text-gray-700 text-xl font-bold mt-2">
+                          {x.name}
+                    </h3>
+                    <div className="flex gap-2 mt-1">
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <RiStarFill
+                            key={i}
+                            className={`w-5 h-5 ${i < Math.round(x.ratings.average) ? "text-yellow-500" : "text-gray-300"}`}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-sm text-gray-500">{x.ratings.total} ({x.ratings.total})</p>
+                    </div>
+                    <div className="mt-2">
+                      <div className="text-gray-600 flex items-center mt-2 gap-2">
+                        <div className="flex-shrink-0">
+                          <RiMapPin2Line className="text-yellow-500 w-4 h-4" />
+                        </div>
+                        <p className="text-sm line-clamp-2">{x.location}</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex flex-col gap-1">
+                      <Link href={`https://wa.me/${x.whatsapp_number}`}><PrimaryButton className="w-full flex gap-2"><RiWhatsappLine className="text-white w-4 h-4" /> <span>Whatsapp</span></PrimaryButton></Link>
                       <Link href={route('umkm.show', x.id)}><PrimaryButton className="w-full">Selengkapnya</PrimaryButton></Link>
                     </div>
                   </div>
