@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,6 +54,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'review_total'
     ];
 
     /**
@@ -66,6 +68,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's review total.
+     *
+     * @return int
+     */
+    public function getReviewTotalAttribute()
+    {
+        return $this->reviews()->count();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(config('review-rating.review_model'), 'author_id');
     }
 
     public function umkm()

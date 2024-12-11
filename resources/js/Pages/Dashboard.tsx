@@ -255,6 +255,22 @@ export default function Dashboard({ umkm }: { umkm: UMKM }) {
               </div>
             </>
           )}
+
+          {props.auth.roles.includes('user') && (
+            <div className='mt-4'>
+                <div className="bg-white dark:bg-gray-800 overflow-hidden rounded-lg p-6 lg:p-8 shadow text-dark-alt">
+                  <div className='flex items-center gap-4'>
+                    <div className='bg-primary-400/80 w-14 h-14 rounded-lg flex justify-center items-center'>
+                      <RiUserStarLine className='w-7 h-7 text-white' />
+                    </div>
+                    <div>
+                      <h2 className='font-semibold text-xl'>Total Reviews</h2>
+                      <p className='font-bold text-xl'>{props.auth.user?.review_total}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          )}
         </div>
       </div>
 

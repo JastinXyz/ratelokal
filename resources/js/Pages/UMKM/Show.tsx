@@ -78,14 +78,14 @@ export default function Show({
       <div className="min-h-screen bg-[#d8f7ea]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="h-8"></div>
-          <header className="flex justify-between items-center bg-white shadow p-4 rounded-lg">
+          <div className="flex justify-between items-center bg-white shadow p-4 rounded-lg">
             <Link href="/"><ApplicationLogo className="text-primary-500 w-36 h-auto" /></Link>
 
             <div className="flex gap-2">
               <Link href="/search"><PrimaryButton className="flex gap-2"><RiSearch2Line className="w-4 h-4" /> <span>Cari</span></PrimaryButton></Link>
               <Link href="/login"><PrimaryButton>Masuk</PrimaryButton></Link>
             </div>
-          </header>
+          </div>
         </div>
 
         <div className="py-6">
@@ -246,7 +246,7 @@ export default function Show({
                           />
                           <div>
                             <h2 className="font-semibold">{x.author?.name}</h2>
-                            <p className="text-sm text-gray-500">20 Kontribusi</p>
+                            <p className="text-sm text-gray-500">{x.author?.review_total} Kontribusi</p>
                           </div>
                         </div>
                         <div className="mt-4 flex gap-1">
