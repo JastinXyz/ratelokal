@@ -374,7 +374,7 @@ export default function Show({
                     return (
                       <div
                         key={idx}
-                        className="bg-white shadow p-4 rounded-lg mt-2"
+                        className={`bg-white shadow p-4 rounded-lg ${((props.auth.user?.id === umkm.user_id) && (idx != 0)) ? 'mt-2' : (props.auth.user?.id !== umkm.user_id) ? 'mt-2' : ''}`}
                       >
                         <div className="flex items-center space-x-4">
                           <img

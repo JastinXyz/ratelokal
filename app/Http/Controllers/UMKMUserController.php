@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class AnotherProfileController extends Controller
+class UMKMUserController extends Controller
 {
     public function roleSwitch(Request $request) {
         /** @var App\Models\User */

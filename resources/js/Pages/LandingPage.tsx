@@ -224,7 +224,7 @@ export default function LandingPage() {
 
           <div className="lg:flex lg:items-end lg:justify-between">
             <div>
-              <div className="flex justify-center">
+              <div className="flex justify-center lg:justify-start">
                 <ApplicationLogo className="text-white w-56 h-auto" />
               </div>
 

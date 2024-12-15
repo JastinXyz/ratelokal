@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AnotherProfileController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\UMKMController;
+use App\Http\Controllers\UMKMUserController;
 use App\Models\UMKM;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -29,13 +29,13 @@ Route::middleware([
         ]);
     })->name('dashboard');
 
-    Route::post('/profile/roleswitch', [AnotherProfileController::class, 'roleSwitch'])->name('profile.switch-role');
-    Route::post('/profile/updateumkm', [AnotherProfileController::class, 'updateUMKM'])->name('profile.update-umkm');
+    Route::post('/profile/roleswitch', [UMKMUserController::class, 'roleSwitch'])->name('profile.switch-role');
+    Route::post('/profile/updateumkm', [UMKMUserController::class, 'updateUMKM'])->name('profile.update-umkm')->middleware('role:umkm');
 
     Route::post('/api/umkm/{umkm}/rate', [UMKMController::class, 'rate'])->name('umkm.rate');
     Route::delete('/api/umkm/{umkm}/rate', [UMKMController::class, 'destroyRate'])->name('umkm.destroyRate');
 
-    Route::get('/api/reviews', [AnotherProfileController::class, 'apiReviews'])->name('profile.apiReviews');
+    Route::get('/api/reviews', [UMKMUserController::class, 'apiReviews'])->name('profile.apiReviews');
 });
 
 Route::get('/api/umkm', [UMKMController::class, 'apiIndex'])->name('umkm.apiIndex');
