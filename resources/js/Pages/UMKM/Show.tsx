@@ -13,7 +13,7 @@ import useRoute from "@/Hooks/useRoute";
 import useTypedPage from "@/Hooks/useTypedPage";
 import Dayjs from "@/lib/dayjs";
 import { Review, UMKM } from "@/types";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import { RiCalendar2Line, RiDeleteBin6Line, RiEditBoxLine, RiErrorWarningLine, RiMapPinLine, RiMenuLine, RiMore2Line, RiMoreLine, RiSearch2Line, RiStarFill, RiWhatsappLine } from "@remixicon/react";
 import axios from "axios";
 import classNames from "classnames";
@@ -53,6 +53,8 @@ export default function Show({
   let destroyRate = () => {
     form.delete(route("umkm.destroyRate", umkm.id), {
       onSuccess: () => {
+        form.reset();
+        router.reload();
         toast.success("Berhasil Terhapus!");
       },
       onError: () => {
@@ -152,7 +154,7 @@ export default function Show({
                             style={{ width: `${percentage}%` }}
                           ></div>
                           </div>
-                          <span className="w-10 text-right text-sm">{percentage.toFixed()}%</span>
+                          <span className="w-10 text-right text-sm">{isNaN(percentage) ? 0 : percentage.toFixed()}%</span>
                         </div>
                       );
                     })}
