@@ -13,6 +13,7 @@ import {
 } from "@remixicon/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import useTypedPage from "@/Hooks/useTypedPage";
+import TwemojiWrapper from "@/Components/TwemojiWrapper";
 
 export default function LandingPage() {
   let { props } = useTypedPage();
@@ -24,8 +25,16 @@ export default function LandingPage() {
   };
 
   return (
-    <>
+    <TwemojiWrapper>
       <Head title={"Welcome - RateLokal"} />
+      <div className="w-full">
+        <div className="max-w-7xl mx-auto relative">
+          <div className="absolute top-44 md:top-40 right-60 min-[356px]:right-72 md:right-44 w-16 h-16">✨</div>
+          <div className="absolute top-44 md:top-[10rem] right-[14rem] min-[356px]:right-[17rem] md:right-[10rem] w-6 h-6 -rotate-12">👍</div>
+          <div className="absolute top-[13.5rem] md:top-[12.5rem] right-[14rem] min-[356px]:right-[17rem] md:right-[10rem] w-6 h-6">🚀</div>
+          <div className="hidden sm:block absolute top-[32rem] md:top-[26rem] left-56 w-16 h-16 rotate-12">🏆</div>
+        </div>
+      </div>
       <div className="min-h-[40rem] bg-[#17B271] rounded-b-[3rem]">
         <div className="flex justify-between items-center pt-8 sm:px-6 lg:px-8 max-w-7xl mx-auto px-4">
           <Link href="/">
@@ -88,7 +97,7 @@ export default function LandingPage() {
           </div>
         )}
 
-        <div className="mt-36">
+        <div className="mt-36 relative z-50">
           <div className="text-center w-full px-4 mt-8">
             <h1 className="text-4xl sm:text-5xl font-bold text-white max-w-3xl mx-auto mb-4">
             Selamat datang di RateLokal
@@ -267,6 +276,6 @@ export default function LandingPage() {
           </p>
         </div>
       </footer>
-    </>
+    </TwemojiWrapper>
   );
 }
