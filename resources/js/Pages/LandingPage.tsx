@@ -79,7 +79,7 @@ export default function LandingPage() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 bg-white overflow-y-auto">
+          <div className="md:hidden fixed inset-0 z-[9999] bg-white overflow-y-auto">
             <div className="flex flex-col h-screen">
               <div className="flex justify-between items-center p-4 border-b">
                 <ApplicationLogo className="text-[#17B271] w-40 h-auto" />
@@ -93,7 +93,10 @@ export default function LandingPage() {
 
               <div className="flex flex-col flex-grow justify-center items-center space-y-4 px-4">
                 <Link href="/search" className="w-full">
-                  <PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Cari</PrimaryButton>
+                  <PrimaryButton onClick={toggleMobileMenu} className="w-full flex items-center gap-2 !py-3">
+                    <RiSearch2Line className="w-4 h-4" />
+                    <span>Cari</span>
+                  </PrimaryButton>
                 </Link>
                 <Link href="/login" className="w-full">
                   {props.auth.user ? <Link href="/dashboard"><PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Dashboard</PrimaryButton></Link> : <Link href="/login"><PrimaryButton onClick={toggleMobileMenu} className="w-full !py-3">Masuk</PrimaryButton></Link>}
