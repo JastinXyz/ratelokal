@@ -29,10 +29,15 @@ export default function LandingPage() {
       <Head title={"Welcome - RateLokal"} />
       <div className="w-full">
         <div className="max-w-7xl mx-auto relative">
-          <div className="absolute top-44 md:top-40 right-60 min-[356px]:right-72 md:right-44 w-16 h-16">✨</div>
-          <div className="absolute top-44 md:top-[10rem] right-[14rem] min-[356px]:right-[17rem] md:right-[10rem] w-6 h-6 -rotate-12">👍</div>
-          <div className="absolute top-[13.5rem] md:top-[12.5rem] right-[14rem] min-[356px]:right-[17rem] md:right-[10rem] w-6 h-6">🚀</div>
-          <div className="hidden sm:block absolute top-[32rem] md:top-[26rem] left-56 w-16 h-16 rotate-12">🏆</div>
+          <div className="absolute top-44 md:top-40 right-60 min-[356px]:right-72 md:right-44 w-16 h-16">
+            <div className="h-10 w-10 bg-primary-300 rounded-full"></div>
+          </div>
+          <div className="absolute top-44 md:top-[10rem] right-[16rem] min-[356px]:right-[19rem] md:right-[12rem] w-6 h-6 -rotate-12">
+            <div className="h-6 w-6 bg-primary-200 rounded-full"></div>
+          </div>
+          <div className="hidden sm:block absolute top-[32rem] md:top-[26rem] left-56 w-16 h-16 rotate-12">
+            <div className="h-10 w-10 bg-primary-300 rounded-full"></div>
+          </div>
         </div>
       </div>
       <div className="min-h-[40rem] bg-[#17B271] rounded-b-[3rem]">
