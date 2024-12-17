@@ -48,9 +48,10 @@ export default function LandingPage() {
 
           <div className="hidden md:flex space-x-4">
             <Link href="/search">
-              <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all">
-                Cari
-              </button>
+            <button className="bg-[#0B905B] text-white w-32 px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                <RiSearch2Line className="w-4 h-4" />
+              <span>Cari</span>
+            </button>
             </Link>
             {props.auth.user ? (
               <Link href="/dashboard">
