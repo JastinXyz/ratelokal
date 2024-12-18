@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class UMKMController extends Controller
 {
     public function apiIndex(Request $request) {
-        $data = UMKM::search($request->query('search'), ['name', 'location', 'whatsapp_number'], [])->paginate($request->query('per_page', 10));
+        $data = UMKM::search($request->query('search'), ['name', 'location', 'whatsapp_number'], [])->paginate($request->query('per_page', 8));
         return response()->json($data);
     }
 
